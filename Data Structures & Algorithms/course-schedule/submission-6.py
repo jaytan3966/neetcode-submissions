@@ -1,0 +1,24 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
+        graph = {i: [] for i in range(numCourses)}
+
+        for c,p in prerequisites:
+            graph[c].append(p)
+
+        visited = set()
+        def dfs(c):
+            if not graph[c]: return True
+
+            if c in visited: return False
+
+            visited.add(c)
+            for p in graph[c]:
+                if not dfs(p): return False
+            visited.remove(c)
+            graph[c] = []
+
+            return True
+        for c in range(numCourses):
+            if not dfs(c): return False
+        return True
