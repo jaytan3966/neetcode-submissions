@@ -1,0 +1,25 @@
+class Solution:
+    def minExtraChar(self, s: str, dictionary: List[str]) -> int:
+        n, m = len(s), len(dictionary)
+        dic = set(dictionary)
+
+        lens = []
+
+        for i in range(m):
+            lens.append(len(dictionary[i]))
+        lens.sort(reverse=True)
+        l = 0
+        ans = 0
+        k = len(lens)
+
+        while l<n:
+            og = l
+            for i in range(k):
+                print(l, l+lens[i], s[l:l+lens[i]])
+                if l+lens[i]<=n and s[l:l+lens[i]] in dic:
+                    l+=lens[i]
+                    break
+            if l == og: 
+                l+=1
+                ans+=1
+        return ans
